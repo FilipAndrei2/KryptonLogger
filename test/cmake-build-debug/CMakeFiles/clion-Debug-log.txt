@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\filan\CLionProjects\untitled4\test Select CMakeLists.txt
