@@ -36,11 +36,10 @@ public:
   }
 
   void write(const char *message) {
-    m_FileStream << message;
+    m_FileStream << message << '\n';
   }
 
   void flush() {
-    m_FileStream << '\n';
     m_FileStream.flush();
   }
 
@@ -51,7 +50,7 @@ public:
   }
 
   bool checkIfCanWrite(LogLevel level) {
-    return m_LogLevel >= level;
+    return m_LogLevel <= level;
   }
 
   LogLevel getLogLevel() { return m_LogLevel; }
@@ -74,6 +73,8 @@ FileSink::FileSink(std::string &filePath, LogLevel LogLevel) {
 FileSink::FileSink(std::string_view filePath, LogLevel LogLevel) {
   m_PImpl = std::make_unique<Impl>(filePath, LogLevel);
 }
+
+FileSink::~FileSink() = default;
 
 bool FileSink::checkIfCanWrite(LogLevel level) {
   return m_PImpl->checkIfCanWrite(level);

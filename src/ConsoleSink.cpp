@@ -12,16 +12,15 @@ public:
     ~Impl();
 
     void write(const char *message) {
-        m_Ostream << message;
+        m_Ostream << message << '\n';
     }
 
     void flush() {
-        m_Ostream << '\n';
         m_Ostream.flush();
     }
 
     bool checkIfCanWrite(LogLevel level) {
-        return m_LogLevel >= level;
+        return m_LogLevel <= level;
     }
 
     LogLevel getLogLevel() {
@@ -40,6 +39,8 @@ private:
 ConsoleSink::ConsoleSink(std::ostream &ostream, LogLevel logLevel) {
     m_PImpl = std::make_unique<Impl>(ostream, logLevel);
 }
+
+ConsoleSink::~ConsoleSink() = default;
 
 void ConsoleSink::write(const char *message) {
     m_PImpl->write(message);

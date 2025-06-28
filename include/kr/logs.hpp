@@ -15,6 +15,8 @@
 #include "LogLevel.hpp"
 
 namespace kr {
+    inline constexpr void changeLogger(std::shared_ptr<Logger> logger) { }
+
     inline constexpr void log(LogLevel level, const char* msg) { }
     inline constexpr void log(LogLevel level, const std::string& msg) { }
     inline constexpr void log(LogLevel level, std::string_view msg) { }
@@ -48,13 +50,13 @@ namespace kr {
 namespace kr {
     namespace _internal {
         inline std::mutex g_LoggerMutex;
-        inline std::unique_ptr<Logger> g_Logger = nullptr;
+        inline std::shared_ptr<Logger> g_Logger = nullptr;
     }
 
-    inline constexpr void changeLogger(Logger& logger) {
+    inline constexpr void changeLogger(std::shared_ptr<Logger> logger) {
         using namespace _internal;
         std::lock_guard lock(g_LoggerMutex);
-        g_Logger = std::make_unique<Logger>(logger);
+        g_Logger = std::move(logger);
     }
 
     inline constexpr void log(LogLevel level, const char* msg) {

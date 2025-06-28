@@ -37,6 +37,7 @@ private:
     std::string m_TimestampStrBuff;
     std::ostringstream m_Oss;
     constexpr std::string timestampToString(time_t p_time) {
+        m_Oss.str("");
         m_Oss.clear();
         std::tm tm = *std::localtime(&p_time);
 
@@ -134,6 +135,8 @@ private:
 Logger::Logger(std::string_view fmt, std::vector<std::unique_ptr<ISink> > &&sinks) {
     m_Impl = std::make_unique<Impl>(fmt, std::move(sinks));
 }
+
+Logger::~Logger() = default;
 
 void Logger::log(LogLevel level, std::string_view msg) {
     m_Impl->log(level, msg);

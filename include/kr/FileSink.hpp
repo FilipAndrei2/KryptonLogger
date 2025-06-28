@@ -16,7 +16,7 @@ namespace kr {
         FileSink(std::string& filePath, LogLevel LogLevel);
         FileSink(std::string_view filePath, LogLevel LogLevel);
 
-        ~FileSink() override = default;
+        ~FileSink() override;
 
         void write(const char *message) override;
 

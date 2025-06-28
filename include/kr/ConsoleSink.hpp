@@ -12,7 +12,7 @@ namespace kr {
     public:
         ConsoleSink(std::ostream& ostream, LogLevel LogLevel);
 
-        ~ConsoleSink() override = default;
+        ~ConsoleSink() override;
 
         void write(const char *message) override;
 

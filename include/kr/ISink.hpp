@@ -9,7 +9,7 @@ namespace kr {
     class ISink {
     public:
 
-        virtual ~ISink();
+        virtual ~ISink() = default;
     public:
         /**
          * Writes the message, without \n
