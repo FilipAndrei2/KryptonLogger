@@ -7,7 +7,6 @@
 #include "kr/ISink.hpp"
 
 namespace kr {
-
     class Logger final {
     public:
         class Builder final {
@@ -22,12 +21,10 @@ namespace kr {
         };
     public:
         Logger() = delete;
+        Logger(std::string_view fmt, std::vector<std::unique_ptr<ISink>>&& sinks);
         ~Logger();
-    public:
         void setFormat(std::string_view fmt);
         void log(LogLevel level, std::string_view msg);
-    private:
-        Logger(std::string_view fmt, std::vector<std::unique_ptr<ISink>>&& sinks);
     private:
         class Impl;
         std::unique_ptr<Impl> m_Impl;

@@ -9,7 +9,7 @@ using namespace kr;
 class ConsoleSink::Impl {
 public:
     Impl(std::ostream& ostream, LogLevel LogLevel) : m_Ostream(ostream), m_LogLevel(LogLevel) { }
-    ~Impl();
+    ~Impl() = default;
 
     void write(const char *message) {
         m_Ostream << message << '\n';
