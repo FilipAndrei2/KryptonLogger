@@ -2,17 +2,17 @@
 // Created by filan on 25.06.2025.
 //
 
-#ifndef LOGGER_HPP
-#define LOGGER_HPP
+#pragma once
 
-#include "kr/Sink.hpp"
+#include "kr/ISink.hpp"
 
 namespace kr {
 
     class Logger final {
     public:
-        Logger(std::string_view fmt, std::initializer_list<Sink&> sinks);
-        ~Logger();
+        Logger() = delete;
+        Logger(std::string_view fmt, std::vector<std::unique_ptr<ISink>>&& sinks);
+        ~Logger() = default;
 
     public:
         void setFormat(std::string_view fmt);
@@ -21,8 +21,6 @@ namespace kr {
 
     private:
         class Impl;
-        Impl* m_Impl;
+        std::unique_ptr<Impl> m_Impl;
     };
 }
-
-#endif //LOGGER_HPP

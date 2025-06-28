@@ -2,8 +2,7 @@
 // Created by filan on 25.06.2025.
 //
 
-#ifndef LOGLEVEL_HPP
-#define LOGLEVEL_HPP
+#pragma once
 
 namespace kr {
     enum class LogLevel {
@@ -15,5 +14,3 @@ namespace kr {
         Fatal
     };
 }
-
-#endif //LOGLEVEL_HPP

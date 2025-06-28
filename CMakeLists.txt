@@ -9,6 +9,6 @@ file(GLOB_RECURSE SOURCES
 
 add_library(krypton STATIC ${SOURCES})
 
-target_include_directories(krypton PUBLIC ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(krypton PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_precompile_headers(krypton PRIVATE include/kr/internal/pch.hpp)

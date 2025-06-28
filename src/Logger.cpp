@@ -6,7 +6,7 @@
 
 #include <iomanip>
 
-#include "kr/Sink.hpp"
+#include "kr/ISink.hpp"
 
 #include <list>
 
@@ -14,7 +14,7 @@ using namespace  kr;
 
 class Logger::Impl {
 public:
-    Impl(std::string_view fmt, std::vector<std::unique_ptr<Sink>>&& sinks)
+    Impl(std::string_view fmt, std::vector<std::unique_ptr<ISink>>&& sinks)
         : m_FormatedMsgBuff(), m_TimestampStrBuff(), m_Format(fmt), m_Sinks(std::move(sinks)) {
         m_FormatedMsgBuff.reserve(1024);
         m_TimestampStrBuff.reserve(128);
@@ -53,7 +53,7 @@ private:
     static constexpr std::string_view c_FatalStr   = "[FATAL]";
     static constexpr std::string_view c_UnknownStr = "[LOG]";
 
-    constexpr std::string_view logLevelToString(LogLevel p_Level) {
+    static constexpr std::string_view logLevelToString(LogLevel p_Level) {
         switch (p_Level) {
             case LogLevel::Trace:
                 return c_TraceStr;
@@ -127,6 +127,18 @@ private:
 
 private:
     std::string m_FormatedMsgBuff;
-    std::vector<std::unique_ptr<Sink>> m_Sinks;
+    std::vector<std::unique_ptr<ISink>> m_Sinks;
     std::string m_Format;
 };
+
+Logger::Logger(std::string_view fmt, std::vector<std::unique_ptr<ISink> > &&sinks) {
+    m_Impl = std::make_unique<Impl>(fmt, std::move(sinks));
+}
+
+void Logger::log(LogLevel level, std::string_view msg) {
+    m_Impl->log(level, msg);
+}
+
+void Logger::setFormat(std::string_view fmt) {
+    m_Impl->setFormat(fmt);
+}
