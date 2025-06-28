@@ -48,11 +48,11 @@ private:
 
     static constexpr std::string_view c_TraceStr   = "[TRACE]";
     static constexpr std::string_view c_DebugStr   = "[DEBUG]";
-    static constexpr std::string_view c_InfoStr    = "[INFO]";
-    static constexpr std::string_view c_WarningStr = "[WARNING]";
+    static constexpr std::string_view c_InfoStr    = "[INFO] ";
+    static constexpr std::string_view c_WarningStr = "[WARN] ";
     static constexpr std::string_view c_ErrorStr   = "[ERROR]";
     static constexpr std::string_view c_FatalStr   = "[FATAL]";
-    static constexpr std::string_view c_UnknownStr = "[LOG]";
+    static constexpr std::string_view c_UnknownStr = "[LOG]  ";
 
     static constexpr std::string_view logLevelToString(LogLevel p_Level) {
         switch (p_Level) {
